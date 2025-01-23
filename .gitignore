@@ -1,0 +1,7 @@
+# Ignore all files in src/assignment_2 except assi2_part2
+src/assignment_2/*
+!src/assignment_2/assi2_part2
+!src/assignment_2/resources
+!src/assignment_2/test
+!src/assignment_2/setup.cnf
+!src/assignment_2/setup.py
