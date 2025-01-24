@@ -38,7 +38,7 @@ This project involves creating a ROS package, **`assignment_2`**, that implement
   - No request input is needed; the service returns a response of type `geometry_msgs/PoseStamped` containing the last goal.
 
 ### 3. **Launch File**
-- The `simulation.launch` file:
+- The `launch_file.launch` file:
   - Initializes the action client, service node, and other simulation nodes in the package.
   - Opens a new GNOME terminal for the action client, making user interaction easier.
 
