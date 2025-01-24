@@ -50,6 +50,7 @@ This project involves creating a ROS package, **`assignment_2`**, that implement
 - Installed ROS.
 - Configured ROS workspace (`catkin_ws`).
 - Installed Gazebo and RViz.
+- Clone the package assignment_2_2024 at the following link: https://github.com/CarmineD8/assignment_2_2024
 
 ### 1. Clone the Package
 ```bash
