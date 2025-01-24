@@ -83,7 +83,7 @@ source ~/.bashrc
 ### 1. Start the Simulation
 Run the launch file:
 ```bash
-roslaunch assignment_2 simulation.launch
+roslaunch assignment_2 launch_file.launch
 ```
 This opens a second terminal for interaction with the action client node.
 
