@@ -7,16 +7,26 @@ from assignment_2_2024.msg import PlanningAction
 from assignment_2.msg import RobotFeedback
 from assignment_2_2024.msg import PlanningGoal, PlanningFeedback
 from actionlib_msgs.msg import GoalStatus
+from std_srvs.srv import Trigger, TriggerResponse
 
 
 class ActionClient:
     def __init__(self):
         # Initialize the SimpleActionClient
         self.client = actionlib.SimpleActionClient("/reaching_goal", PlanningAction)
-        # Publisher for robot position and velocity
+
+        # Publisher for robot position and velocity in km/h
         self.pub_position_vel = rospy.Publisher("/robot_information", RobotFeedback, queue_size=10)
+
+        # Service for goal statistics
+        self.goal_service = rospy.Service("/goal_statistics", Trigger, self.goal_statistics_callback)
+
         # Subscriber for odometry data
         self.sub = rospy.Subscriber("/odom", Odometry, self.odom_callback)
+
+        # Goal statistics
+        self.goals_reached = 0
+        self.goals_cancelled = 0
 
         rospy.loginfo("Waiting for the action server to be available...")
         self.client.wait_for_server()
@@ -39,68 +49,74 @@ class ActionClient:
                 rospy.logwarn("Invalid command. Please try again.")
 
     def odom_callback(self, msg):
-        # Publish robot position and velocity
+        # Publish robot position and velocity (converted to km/h)
         robot_feedback = RobotFeedback()
         robot_feedback.x = msg.pose.pose.position.x
         robot_feedback.y = msg.pose.pose.position.y
-        robot_feedback.vel_x = msg.twist.twist.linear.x
+        robot_feedback.vel_x = msg.twist.twist.linear.x * 3.6  # Convert m/s to km/h
+        robot_feedback.vel_y = msg.twist.twist.linear.y * 3.6  # Convert m/s to km/h
         robot_feedback.vel_z = msg.twist.twist.angular.z
 
         self.pub_position_vel.publish(robot_feedback)
 
     def feedback_callback(self, feedback):
-        # Log feedback from the server
         rospy.loginfo("Feedback received: [%f, %f], Status: %s",
                       feedback.actual_pose.position.x,
                       feedback.actual_pose.position.y,
                       feedback.stat)
 
     def send_goal(self, x, y):
-        # Create and send a goal to the action server
         goal = PlanningGoal()
         goal.target_pose.pose.position.x = x
         goal.target_pose.pose.position.y = y
-        goal.target_pose.pose.position.z = 0.0
-        goal.target_pose.pose.orientation.x = 0.0
-        goal.target_pose.pose.orientation.y = 0.0
-        goal.target_pose.pose.orientation.z = 0.0
         goal.target_pose.pose.orientation.w = 1.0
 
-        self.client.send_goal(goal, feedback_cb=self.feedback_callback)
+        self.client.send_goal(goal, done_cb=self.goal_done_callback, feedback_cb=self.feedback_callback)
         rospy.loginfo("Goal sent to [%f, %f]", x, y)
 
+    def goal_done_callback(self, state, result):
+        if state == GoalStatus.SUCCEEDED:
+            rospy.loginfo("Goal reached successfully!")
+            self.goals_reached += 1
+        elif state in [GoalStatus.PREEMPTED, GoalStatus.RECALLED]:
+            rospy.loginfo("Goal was cancelled.")
+            self.goals_cancelled += 1
+
     def cancel_goal(self):
-        # Cancel the current goal
         state = self.client.get_state()
         rospy.loginfo("Current goal state: %d", state)
 
         if state in [GoalStatus.ACTIVE, GoalStatus.PENDING]:
             rospy.loginfo("Cancelling the current goal...")
             self.client.cancel_goal()
-            rospy.sleep(1.0)  # Give the server time to process the cancellation
+            rospy.sleep(1.0)
 
             new_state = self.client.get_state()
             if new_state in [GoalStatus.PREEMPTED, GoalStatus.RECALLED]:
                 rospy.loginfo("Goal successfully cancelled")
+                self.goals_cancelled += 1
             else:
                 rospy.logwarn("Failed to cancel the goal. Current state: %d", new_state)
         else:
             rospy.logwarn("No active goal to cancel.")
 
+    def goal_statistics_callback(self, request):
+        response = TriggerResponse()
+        response.success = True
+        response.message = f"Goals Reached: {self.goals_reached}, Goals Cancelled: {self.goals_cancelled}"
+        return response
+
     def get_input(self):
-        # Get user input for goal coordinates
         while True:
             try:
-                x = float(input("Enter the value for setting the x coordinate: "))
-                y = float(input("Enter the value for setting the y coordinate: "))
+                x = float(input("Enter the x coordinate: "))
+                y = float(input("Enter the y coordinate: "))
                 return x, y
             except ValueError:
-                rospy.logwarn("Input not valid, enter only numbers!")
+                rospy.logwarn("Invalid input, enter only numbers!")
 
 
 if __name__ == "__main__":
     rospy.init_node("action_client")
-
     action_client = ActionClient()
     action_client.run()
-
