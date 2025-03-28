@@ -1,73 +1,118 @@
+# Assignment 2 (Part I) - Action Client and Service Node for Robot Navigation
 
-#Assignment 2 (Part I) - Action Client and Service Node for Robot Navigation
-##Overview
-This project involves creating a ROS package named assignment_2 that implements two key components to move the robot by setting a goal to reach. These components are:
+## Overview
+This project involves creating a ROS package, **`assignment_2`**, that implements two key components for robot navigation by setting a goal to reach:
 
-###'1.Action Client Node (node1)': an action client that allows the user to set a goal or cancel it, and publishes, on the /robot_information topic, the custom message Robot_info composed of the following fields:
-float64 x
-float64 y
-float64 vel_x
-float64 vel_z
-###'Service Node (node2)': a service that returns the coordinates of the last goal set by the user through the first node.
-##Nodes Description
-###1. Action Client Node
-Everything is managed in the same terminal tab where the launch file was started. The action client will prompt you to press one of three keys:
+1. **Action Client Node (node1):**
+   - Allows the user to set or cancel a goal.
+   - Publishes custom messages (`Robot_info`) on the `/robot_information` topic with the following fields:
+     - `float64 x`  
+     - `float64 y`  
+     - `float64 vel_x`  
+     - `float64 vel_z`
 
-s to set a new goal
-c to cancel an active goal
-q to exit the program
-If s is pressed, you will also need to enter the x and y coordinates of the robot's destination.
+2. **Service Node (node2):**
+   - Returns the coordinates of the last goal set by the user through the action client node.
 
-After setting the goal, once the robot reaches it, a warning will be printed containing the robot's current position and the goal status, which will be: Goal reached!. Additionally, this node publishes the robot's position and velocity as a custom message containing x, y, vel_x, vel_z, using the /odom topic data.
+---
 
-###2. Service Node
-This node is a service that allows retrieving the last goal set to the action server. The functionality is simple, no specific request is needed, and the service response will simply be the last goal set of type geometry_msgs/PoseStamped.
+## Nodes Description
 
-###3. Launch File
-The simulation.launch file initializes the action client, service nodes, and all simulation nodes included in the assignment_2_2024 package. The launch file opens a new gnome-terminal to execute the action client, allowing the user to interact more effectively with the node.
+### 1. **Action Client Node**
+- **Functionality:**
+  - Allows interaction via a terminal to:
+    - Set a new goal (`s` key).
+    - Cancel an active goal (`c` key).
+    - Exit the program (`q` key).
+  - After setting a goal, the robot's current position and goal status will be printed upon reaching the goal (`Goal reached!`).
+  - Publishes the robot's position and velocity (from `/odom` topic) as a custom message on the `/robot_information` topic.
 
-##Install the Package
-Prerequisites
-ROS must be installed on your system
-A properly configured ROS workspace
-Gazebo and RViz installed
-Clone the package assignment_2_2024 at the following link: assignment_2_2024
-##1. Clone the Package
-Open a terminal.
-Navigate to the src folder of your ROS workspace:
+- **User Interaction:**
+  - Press `s` to set a goal (you'll also need to input `x` and `y` coordinates).
+  - Press `c` to cancel an active goal.
+  - Press `q` to exit.
+
+### 2. **Service Node**
+- **Functionality:**
+  - Provides a service to retrieve the last goal set.
+  - No request input is needed; the service returns a response of type `geometry_msgs/PoseStamped` containing the last goal.
+
+### 3. **Launch File**
+- The `launch_file.launch` file:
+  - Initializes the action client, service node, and other simulation nodes in the package.
+  - Opens a new GNOME terminal for the action client, making user interaction easier.
+
+---
+
+## Installation
+
+### Prerequisites
+- Installed ROS.
+- Configured ROS workspace (`catkin_ws`).
+- Installed Gazebo and RViz.
+- Clone the package assignment_2_2024 at the following link: https://github.com/CarmineD8/assignment_2_2024
+
+### 1. Clone the Package
+```bash
 cd ~/catkin_ws/src
-Clone the assignment_2 package repository:
 git clone https://github.com/ta04lha/assignment_2.git
-Enter the repo and switch to the main branch:
 cd assignment_2
 git switch main
-##2. Compile the Package
-Navigate back to the main workspace directory:
+```
+
+### 2. Compile the Package
+```bash
 cd ~/catkin_ws
-Compile the package using catkin_make:
 catkin_make
-Check that the package compiled successfully. If there are no errors, a build completion message will appear.
-##3. Source the Environment
-Update the ROS environment variables to make your package accessible by adding the following line inside your ~/.bashrc file:
+```
+Ensure there are no errors during compilation.
+
+### 3. Source the Environment
+Add the following line to your `~/.bashrc`:
+```bash
 echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-To apply the changes, type the command:
+```
+Apply the changes:
+```bash
 source ~/.bashrc
-##4. Run the Package
-####4.1. Start the Simulation from launch file
-Open the terminal and run the whole simulation
-roslaunch assignment_2 simulation.launch
-A second terminal will be opened, allowing the user to interact to set or cancel the goal.
-####4.2 (Optional) Call to the service node
-If you want to make a call to the service node to get the last goal that was sent to the action server, you need to open a new terminal tab and type the command:
+```
+
+---
+
+## Running the Package
+
+### 1. Start the Simulation
+Run the launch file:
+```bash
+roslaunch assignment_2 launch_file.launch
+```
+This opens a second terminal for interaction with the action client node.
+
+### 2. (Optional) Interact with the Service Node
+To retrieve the last goal sent to the action server:
+```bash
 rosservice call /get_last_goal
-and you will receive a message of type geometry_msgs/PoseStamped containing the last set goal.
-##5. Interacting with the Nodes
-Action Client Node: everything is managed in the same terminal tab where the launch file was started. The action client will prompt you to press one of three keys:
+```
+The service returns a `geometry_msgs/PoseStamped` message with the last goal.
 
-s to set a new goal
-c to cancel an active goal
-q to exit the program
-#####Don't worry about the messages being printed, the action client will always be listening!.
+---
 
-##.Service Node:
- To interact with it, just open a new terminal and use the command rosservice call /get_last_goal.
+## Interacting with the Nodes
+
+### Action Client Node
+Manage everything in the terminal where the launch file is running:
+- **Set Goal:** Press `s` and enter `x` and `y` coordinates.
+- **Cancel Goal:** Press `c`.
+- **Exit Program:** Press `q`.
+
+The action client will continuously listen for user input while printing status messages.
+
+### Service Node
+Open a new terminal and call the service:
+```bash
+rosservice call /get_last_goal
+```
+This will output the last set goal.
+
+---
+
