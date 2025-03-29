@@ -11,6 +11,17 @@ from std_srvs.srv import Trigger, TriggerResponse
 
 
 class ActionClient:
+"""ROS Action Client for sending goals to a navigation server.
+    
+    This client allows setting new goals, canceling current goals, and 
+    provides continuous feedback about the robot's position and velocity.
+    
+    Attributes:
+        client (SimpleActionClient): Action client for the '/reaching_goal' action
+        pub_position_vel (Publisher): Publisher for robot position/velocity info
+        sub (Subscriber): Subscriber for odometry data
+    """
+
     def __init__(self):
         # Initialize the SimpleActionClient
         self.client = actionlib.SimpleActionClient("/reaching_goal", PlanningAction)
