@@ -13,7 +13,25 @@ author = 'Talha Rebbouh'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+  'sphinx.ext.autodoc', 
+'sphinx.ext.doctest', 
+'sphinx.ext.intersphinx', 
+'sphinx.ext.todo', 
+'sphinx.ext.coverage', 
+'sphinx.ext.mathjax', 
+'sphinx.ext.ifconfig', 
+'sphinx.ext.viewcode', 
+'sphinx.ext.githubpages', 
+"sphinx.ext.napoleon",
+ 'sphinx.ext.inheritance_diagram',
+ 'breathe'
+]
+
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('home/my_ros/src/assignment_2/scripts'))
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

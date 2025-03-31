@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to assignment_2’s documentation! &#8212; assignment_2  documentation</title>
+    <title>Welcome to Assignment 2’s documentation! &#8212; Assignment 2  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=6625fa76" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=0868e8a2" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
@@ -27,7 +28,7 @@
           <div class="body" role="main">
             
   <section id="welcome-to-assignment-2-s-documentation">
-<h1>Welcome to assignment_2’s documentation!<a class="headerlink" href="#welcome-to-assignment-2-s-documentation" title="Permalink to this heading">¶</a></h1>
+<h1>Welcome to Assignment 2’s documentation!<a class="headerlink" href="#welcome-to-assignment-2-s-documentation" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -39,19 +40,20 @@
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </section>
-<section id="welcome-to-the-ros-action-client-service-documentation">
-<h1>Welcome to the ROS Action Client/Service Documentation<a class="headerlink" href="#welcome-to-the-ros-action-client-service-documentation" title="Permalink to this heading">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<hr class="docutils" />
+<section id="action-client-module">
+<h1>Action Client Module<a class="headerlink" href="#action-client-module" title="Permalink to this heading">¶</a></h1>
 <section id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this heading">¶</a></h2>
 </section>
-<hr class="docutils" />
+</section>
+<section id="last-target-service-module">
+<h1>Last Target Service Module<a class="headerlink" href="#last-target-service-module" title="Permalink to this heading">¶</a></h1>
 <section id="id1">
 <h2>Class Documentation<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 </section>
-<hr class="docutils" />
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
@@ -64,8 +66,9 @@
 <h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Clone the repository:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;your-repository-url&gt;
-<span class="nb">cd</span><span class="w"> </span>&lt;repository-folder&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;https://github.com/ta04lha/assignment_2.git&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;assignment_2&gt;
+git<span class="w"> </span>switch<span class="w"> </span>main
 </pre></div>
 </div>
 </li>
@@ -76,16 +79,16 @@
 </div>
 </li>
 <li><p>Ensure the Python files are executable:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>src/assignment_2_2024/scripts/action_client.py
-chmod<span class="w"> </span>+x<span class="w"> </span>src/assignment_2_2024/scripts/Last_target_service.py
-
-Usage
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>src/assignment_2/scripts/action_client.py
+chmod<span class="w"> </span>+x<span class="w"> </span>src/assignment_2/scripts/Last_target_service.py
 </pre></div>
 </div>
 </li>
 </ol>
 </section>
-<hr class="docutils" />
+</section>
+<section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
 <section id="running-the-action-client">
 <h2>Running the Action Client<a class="headerlink" href="#running-the-action-client" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic">
@@ -115,28 +118,10 @@ Usage
 </li>
 <li><p>Call the service to get the last target:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosservice<span class="w"> </span>call<span class="w"> </span>/get_last_goal
-
-API<span class="w"> </span>Reference
 </pre></div>
 </div>
 </li>
 </ol>
-</section>
-<hr class="docutils" />
-<section id="action-client">
-<h2>Action Client<a class="headerlink" href="#action-client" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="last-target-service">
-<h2>Last Target Service<a class="headerlink" href="#last-target-service" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="messages-and-services">
-<h2>Messages and Services<a class="headerlink" href="#messages-and-services" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">PlanningAction</span></code>: Action message for goal planning</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PlanningGoal</span></code>: Goal message containing target pose</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">RobotFeedback</span></code>: Custom message for robot position/velocity feedback</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">LastTarget</span></code>: Service definition for getting last goal</p></li>
-</ul>
 </section>
 </section>
 
@@ -146,7 +131,7 @@ API<span class="w"> </span>Reference
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">assignment_2</a></h1>
+<h1 class="logo"><a href="#">Assignment 2</a></h1>
 
 
 

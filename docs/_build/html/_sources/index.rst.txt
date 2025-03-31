@@ -1,14 +1,23 @@
-.. assignment_2 documentation master file, created by
-   sphinx-quickstart on Fri Mar 28 13:08:46 2025.
+.. Assignment 2 documentation master file, created by
+   sphinx-quickstart on Sat Mar 29 15:40:26 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to assignment_2's documentation!
+Welcome to Assignment 2's documentation!
 ========================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   
+   
+   installation
+   usage
+   modules/action_client
+   modules/last_target_service
+   api
+   
+   
 
 
 
@@ -19,23 +28,7 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-
-.. My ROS Action Client/Service documentation master file
-
-Welcome to the ROS Action Client/Service Documentation
-=====================================================
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   installation
-   usage
-   modules/action_client
-   modules/last_target_service
-   api
-   
-   Action Client Module
+Action Client Module
 ====================
 
 .. automodule:: action_client
@@ -57,8 +50,8 @@ Class Documentation
    .. automethod:: cancel_goal
    .. automethod:: get_input
    
-   Last Target Service Module
-=========================
+Last Target Service Module
+==========================
 
 .. automodule:: Last_target_service
    :members:
@@ -75,7 +68,8 @@ Class Documentation
    .. automethod:: goal_callback
    .. automethod:: handle_last_goal_request
    
-   Installation
+   
+Installation
 ============
 
 Prerequisites
@@ -91,8 +85,9 @@ Installation Steps
 
    .. code-block:: bash
 
-      git clone <your-repository-url>
-      cd <repository-folder>
+      git clone <https://github.com/ta04lha/assignment_2.git>
+      cd <assignment_2>
+      git switch main
 
 2. Build the workspace:
 
@@ -105,14 +100,15 @@ Installation Steps
 
    .. code-block:: bash
 
-      chmod +x src/assignment_2_2024/scripts/action_client.py
-      chmod +x src/assignment_2_2024/scripts/Last_target_service.py
+      chmod +x src/assignment_2/scripts/action_client.py
+      chmod +x src/assignment_2/scripts/Last_target_service.py
       
-      Usage
-=====
+      
+Usage
+=======
 
 Running the Action Client
-------------------------
+--------------------------
 
 1. Start ROS core:
 
@@ -132,7 +128,7 @@ Running the Action Client
    - 'q': Quit the action client
 
 Running the Last Target Service
-------------------------------
+--------------------------------
 
 1. Start the service node:
 
@@ -146,25 +142,5 @@ Running the Last Target Service
 
       rosservice call /get_last_goal
       
-      API Reference
-=============
+      
 
-Action Client
--------------
-
-.. autoclass:: action_client.ActionClient
-   :members:
-
-Last Target Service
--------------------
-
-.. autoclass:: Last_target_service.ServiceNode
-   :members:
-
-Messages and Services
----------------------
-
-- ``PlanningAction``: Action message for goal planning
-- ``PlanningGoal``: Goal message containing target pose
-- ``RobotFeedback``: Custom message for robot position/velocity feedback
-- ``LastTarget``: Service definition for getting last goal
