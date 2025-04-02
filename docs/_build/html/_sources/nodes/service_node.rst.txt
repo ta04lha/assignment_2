@@ -1,18 +1,17 @@
 Service Node
 ============
 
-.. autoclass:: Last_target_service.ServiceNode ...
+.. autoclass:: Last_target_service.ServiceNode
    :members:
-   :special-members: __init__ 
-
-.. _service_node:
+   :special-members: __init__
+..
 Topics
 ------
 
 +------------------------+----------------------+---------------------------+
 | Topic                  | Type                 | Description               |
 +========================+======================+===========================+
-| ``/reaching_goal/goal``| ``PlanningActionGoal``| ``Goal subscription ``       |
+| ``/reaching_goal/goal``| ``PlanningActionGoal``| Goal subscription        |
 +------------------------+----------------------+---------------------------+
 
 Services

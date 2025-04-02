@@ -18,8 +18,7 @@ author = 'Talha Rebbouh'
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('home/my_ros/src/assignment_2/scripts'))
-
+sys.path.insert(0, os.path.abspath('../../scripts'))
 
 extensions = [
   'sphinx.ext.autodoc',
