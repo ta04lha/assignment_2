@@ -47,3 +47,4 @@ source_suffix = '.rst'
 master_doc = 'index'
 html_theme ='sphinx_rtd_theme'
 html_static_path = ['_static']
+html_baseurl = 'https://ta04lha.github.io/assignment_2/'
