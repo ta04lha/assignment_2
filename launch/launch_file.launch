@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <launch>
-       <include file="$(find assignment_2_2024)/launch/assignment1.launch" />
-   
-    <node pkg="assignment_2" type="action_client.py" name="action_client_node" output="screen" launch-prefix="gnome-terminal --command" />
-
+    <include file="$(find assignment_2_2024)/launch/assignment1.launch" />
+    
+    <node pkg="assignment_2" type="action_client.py" name="action_client_node" output="screen" />
+    
     <node pkg="assignment_2" type="Last_target_service.py" name="Last_target_service" output="screen" />
-
 </launch>
 
