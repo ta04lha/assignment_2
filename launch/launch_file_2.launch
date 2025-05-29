@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <include file="$(find assignment_2_2024)/launch/assignment1.launch" />
+    <include file="$(find assignment_2_2024)/launch/assignment1_b.launch" />
     
     <node pkg="assignment_2" type="action_client.py" name="action_client_node" output="screen" />
     
